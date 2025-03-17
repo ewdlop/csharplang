@@ -71,3 +71,11 @@ The current ECMA-334 specification can be found in markdown form on the [C# Lang
 ## Implementation
 
 The reference implementation of the C# language can be found in the [Roslyn repository](https://github.com/dotnet/roslyn). This repository also tracks the [implementation status for language features](https://github.com/dotnet/roslyn/blob/main/docs/Language%20Feature%20Status.md). Until recently, that was also where language design artifacts were tracked. Please allow a little time as we move over active proposals.
+
+#2632
+
+#3038
+
+## Anonymous type aliasing
+
+#8928
