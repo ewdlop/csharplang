@@ -79,3 +79,7 @@ The reference implementation of the C# language can be found in the [Roslyn repo
 ## Anonymous type aliasing
 
 #8928
+
+## stack allocation fix
+
+[params-collections](https://github.com/ewdlop/csharplang/blob/main/proposals/csharp-13.0/params-collections.md)
