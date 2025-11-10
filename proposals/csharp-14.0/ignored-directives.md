@@ -1,6 +1,8 @@
-# Ignored directives
+# Ignored directives for file-based apps
 
-Champion issue: <https://github.com/dotnet/csharplang/issues/3507>
+[!INCLUDE[Specletdisclaimer](../speclet-disclaimer.md)]
+
+Champion issue: <https://github.com/dotnet/csharplang/issues/8617>
 
 ## Summary
 
@@ -11,10 +13,12 @@ Add `#:` directive prefix to be used by tooling, but ignored by the language.
 #:sdk      Microsoft.NET.Sdk.Web
 #:property TargetFramework=net11.0
 #:property LangVersion=preview
-#:package  System.CommandLine=2.0.0-*
+#:package  System.CommandLine@2.0.0-*
 
 Console.WriteLine("Hello, World!");
 ```
+
+See the [SDK documentation for `dotnet run file.cs`](https://learn.microsoft.com/dotnet/csharp/language-reference/preprocessor-directives#file-based-apps) for more details on directives supported in file-based apps.
 
 ## Motivation
 
@@ -48,6 +52,8 @@ PP_IgnoredToken
     ;
 ```
 
+These are parsed regardless of language version.
+
 ### Restrictions
 
 Ignored directives must occur before the first token ([§6.4][tokens]) in the compilation unit, just like `#define`/`#undef` directives.
@@ -60,7 +66,7 @@ Furthermore, the compiler should report a warning if the `#!` directive is not p
 Compilers are also free to report errors if these directives are used in unsupported scenarios,
 e.g., Roslyn will report an error if these directives are present in a file compiled as part of "project-based programs" as opposed to "file-based programs"
 (and tooling will remove these directives when migrating file-based programs to project-based programs).
-That error should not be reported for the `#!` directive, it can be placed on any file because it might invoke some other tool than `dotnet run`.
+If needed, we might consider not reporting that error for the `#!` directive, as it might invoke some other tool than `dotnet run`, so there is no need to restrict it to scripts and file-based programs only.
 
 Similarly, the compiler or SDK should still error/warn on unrecognized directives to "reserve" them for future use by the official .NET tooling.
 
@@ -84,7 +90,7 @@ We could add each ignored directive to the language instead of introducing one i
 #sdk      Microsoft.NET.Sdk.Web
 #property TargetFramework=net11.0
 #property LangVersion=preview
-#package  System.CommandLine=2.0.0-*
+#package  System.CommandLine@2.0.0-*
 #something // unrecognized directives would still be required by the language spec to be an error
 
 Console.WriteLine("Hello, World!");
